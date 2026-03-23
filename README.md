@@ -1,19 +1,34 @@
-# iOS Accessibility Skill for Claude Code
+# iOS Accessibility Skills for Claude Code
 
-A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash command that turns Claude into an iOS accessibility expert. Based on the book ["Про доступность iOS"](https://rubanov.dev/a11y/) by Mikhail Rubanov.
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash commands that turn Claude into an iOS accessibility expert. Based on the book ["Про доступность iOS"](https://rubanov.dev/a11y-book/) by Mikhail Rubanov.
 
-## What it does
+## Skills
 
-The `/a11y` skill gives Claude deep knowledge of iOS accessibility APIs and best practices for both UIKit and SwiftUI, including:
+### `/a11y` — General Accessibility
 
-- VoiceOver, Voice Control, and Switch Control support
+VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit and SwiftUI:
+
 - `accessibilityLabel`, `accessibilityValue`, `accessibilityTraits`, and `accessibilityHint`
-- Element grouping and containers
+- Element grouping, containers, and focus order control
 - Adjustable elements and custom actions
-- Dynamic Type support
+- Speech customization (pronunciation, language, pitch)
 - Navigation: notifications, modals, scrub gesture, magic tap, custom rotors
+- Color contrast, Smart Invert, reduce motion
+- Drag and drop accessibility
 - System accessibility settings to respect
 - Testing strategies (manual, automated, snapshot tests)
+
+### `/dynamic-type` — Dynamic Type
+
+Dedicated skill for text scaling and adaptive layout:
+
+- System and custom font scaling (`UIFontMetrics`, `@ScaledMetric`)
+- Adaptive layout (switching axis at accessibility sizes)
+- Self-sizing cells and containers
+- Large Content Viewer for fixed controls
+- Bold text support
+- Limiting Dynamic Type when needed
+- Testing and verification
 
 ## Setup
 
@@ -25,7 +40,7 @@ Copy the `.claude/` directory into your iOS project's root:
 cp -r .claude/ /path/to/your/ios-project/.claude/
 ```
 
-This makes the `/a11y` command available whenever you use Claude Code in that project.
+This makes both `/a11y` and `/dynamic-type` commands available whenever you use Claude Code in that project.
 
 ### Option 2: Add as a global skill
 
@@ -34,6 +49,7 @@ Copy the command file to your home-level Claude config so it's available in all 
 ```bash
 mkdir -p ~/.claude/commands
 cp .claude/commands/a11y.md ~/.claude/commands/a11y.md
+cp .claude/commands/dynamic-type.md ~/.claude/commands/dynamic-type.md
 ```
 
 ## Usage
@@ -45,7 +61,7 @@ Open Claude Code in your iOS project and use the `/a11y` slash command with any 
 
 /a11y Make this cell accessible with VoiceOver
 
-/a11y Add Dynamic Type support to this view
+/dynamic-type Add Dynamic Type support to this view
 
 /a11y How should I make this custom slider accessible?
 
@@ -89,6 +105,7 @@ When creating or modifying any UIView, UIViewController, or SwiftUI View:
 - Run /a11y to review the accessibility of the changed code
 - Ensure every interactive element has accessibilityLabel and appropriate traits
 - Ensure decorative images are hidden from VoiceOver
+- Run /dynamic-type to review Dynamic Type support
 - Ensure Dynamic Type is supported (no fixed heights, use dynamic fonts)
 ```
 
@@ -109,7 +126,7 @@ Every UI change MUST pass these checks before being considered complete:
 6. **State changes**: Dynamic content posts `UIAccessibility.post(notification:)` appropriately
 7. **System settings**: Respect `isReduceMotionEnabled`, `shouldDifferentiateWithoutColor`, `isBoldTextEnabled`, and other accessibility preferences
 
-When writing or reviewing UI code, use /a11y to verify compliance.
+When writing or reviewing UI code, use /a11y and /dynamic-type to verify compliance.
 ```
 
 ### Per-screen rule (for new features)
@@ -123,12 +140,17 @@ All views in `Sources/Checkout/` must be fully accessible.
 Before marking any task as done, run `/a11y Review {filename} for accessibility issues` on every changed view file.
 ```
 
-## How the skill works
+## How the skills work
 
-The skill is a markdown file at `.claude/commands/a11y.md` that Claude Code loads as a system prompt when you invoke `/a11y`. It contains structured knowledge about iOS accessibility APIs, patterns, and best practices that Claude uses to give accurate, specific advice.
+Each skill is a markdown file in `.claude/commands/` that Claude Code loads as a system prompt when you invoke the slash command. They contain structured knowledge about iOS accessibility APIs, patterns, and best practices that Claude uses to give accurate, specific advice.
 
-The `$ARGUMENTS` placeholder at the end of the file is replaced with whatever you type after `/a11y`.
+The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever you type after the command.
+
+| File | Command | Focus |
+|------|---------|-------|
+| `.claude/commands/a11y.md` | `/a11y` | VoiceOver, Voice Control, Switch Control, general accessibility |
+| `.claude/commands/dynamic-type.md` | `/dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
 
-The accessibility knowledge is based on the book ["Про доступность iOS"](https://rubanov.dev/a11y/) by Mikhail Rubanov.
+The accessibility knowledge is based on the book ["Про доступность iOS"](https://rubanov.dev/a11y-book/) by Mikhail Rubanov.
