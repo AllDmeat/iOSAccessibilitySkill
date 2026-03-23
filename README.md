@@ -1,6 +1,6 @@
 # iOS Accessibility Skills for Claude Code
 
-[Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash commands that turn Claude into an iOS accessibility expert. Based on the book ["Про доступность iOS"](https://rubanov.dev/a11y-book/) by Mikhail Rubanov.
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash commands that turn Claude into an iOS accessibility expert. Based on the book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/) by Mikhail Rubanov.
 
 ## Skills
 
