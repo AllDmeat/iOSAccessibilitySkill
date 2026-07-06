@@ -70,6 +70,27 @@ List what a person could *say*, not just what's written:
 - **Synonyms for the item type** — "recipient" / "contact", "transaction" / "payment", "card".
 Keep phrases short and pronounceable, most-likely first, and avoid unspeakable strings (addresses, ids) entirely.
 
+## Pattern: label–value row (two labels in an HStack)
+A row of `HStack { Text(title); Spacer(); Text(value) }` — detail / summary / spec / total rows on review, receipt, and settings screens — reads as **two separate** VoiceOver elements ("Amount" … then "$750"). Combine each row into one element, as a label → value pair. Do it in the row *helper* so every row benefits:
+
+```swift
+func detailRow(_ title: String, _ value: String, isTotal: Bool = false) -> some View {
+    HStack {
+        Text(title)
+        Spacer()
+        Text(value)
+    }
+    .accessibilityElement(children: .ignore)     // .combine also works
+    .accessibilityLabel(title)                   // label = leading text
+    .accessibilityValue(value)                   // value = trailing text
+    // Section totals / group titles are headers — the rotor can jump to them.
+    .accessibilityAddTraits(isTotal ? .isHeader : [])
+}
+```
+
+- Use **`.ignore` + explicit label/value** for the clean "title, value" reading and full control. `.combine` also works but merges both into the *label* ("title value") with no label/value split — fine when there isn't a meaningful split.
+- If the value is hard to read (address, id, long code), keep the row's value short and move the full thing to `accessibilityCustomContent` (rule 3).
+
 ## Decorative content
 Avatars, thumbnails, chevrons, and status dots are usually decorative once the label/value carry the meaning — hide them (`.accessibilityHidden(true)` / `isAccessibilityElement = false`), or let `children: .ignore` drop them. Keep a status icon's meaning only if it isn't already in the value.
 
