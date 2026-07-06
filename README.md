@@ -29,6 +29,15 @@ Focused skill for list / table / collection **cells** — turn a multi-view row 
 - **Input labels** with alternatives and synonyms for Voice Control
 - Hiding decorative avatars / icons / chevrons
 
+### `/carousel` — Carousel Accessibility
+
+Focused skill for horizontally paged banners, card decks, galleries, and onboarding pagers:
+
+- Adjustable-control vs container-of-pages model
+- Announcing position ("page X of N") and page changes
+- Hiding off-screen pages, `accessibilityScroll` paging (UIKit)
+- Pausing autoplay under VoiceOver / Switch Control / Reduce Motion
+
 ### `/dynamic-type` — Dynamic Type
 
 Dedicated skill for text scaling and adaptive layout:
@@ -168,6 +177,7 @@ The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever y
 |------|---------|-------|
 | `.claude/commands/a11y.md` | `/a11y` | VoiceOver, Voice Control, Switch Control, general accessibility |
 | `.claude/commands/cell.md` | `/cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
+| `.claude/commands/carousel.md` | `/carousel` | Carousel accessibility: paging model, position, autoplay |
 | `.claude/commands/dynamic-type.md` | `/dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
