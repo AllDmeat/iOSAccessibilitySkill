@@ -18,6 +18,17 @@ VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit an
 - System accessibility settings to respect
 - Testing strategies (manual, automated, snapshot tests)
 
+### `/cell` — Cell Accessibility
+
+Focused skill for list / table / collection **cells** — turn a multi-view row into one well-structured element:
+
+- One element per cell (`.combine` / `.ignore` / `isAccessibilityElement`)
+- **Label = main content, value = additional content**
+- **Hard-to-read values** (addresses, ids, timestamps) → `accessibilityCustomContent` (spoken on demand)
+- **All button actions** → accessibility actions (primary activation + named custom actions)
+- **Input labels** with alternatives and synonyms for Voice Control
+- Hiding decorative avatars / icons / chevrons
+
 ### `/dynamic-type` — Dynamic Type
 
 Dedicated skill for text scaling and adaptive layout:
@@ -149,6 +160,7 @@ The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever y
 | File | Command | Focus |
 |------|---------|-------|
 | `.claude/commands/a11y.md` | `/a11y` | VoiceOver, Voice Control, Switch Control, general accessibility |
+| `.claude/commands/cell.md` | `/cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
 | `.claude/commands/dynamic-type.md` | `/dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
