@@ -70,7 +70,9 @@ Open Claude Code in your iOS project and use the `/a11y` slash command with any 
 ```
 /a11y Review this file for accessibility issues
 
-/a11y Make this cell accessible with VoiceOver
+/cell Make this recipient row read as one VoiceOver element
+
+/cell Move the hard-to-read values in this cell into custom content
 
 /dynamic-type Add Dynamic Type support to this view
 
@@ -89,6 +91,11 @@ Open Claude Code in your iOS project and use the `/a11y` slash command with any 
 **Make a screen accessible step by step:**
 ```
 /a11y Walk me through making the checkout screen fully accessible
+```
+
+**Adapt a cell:**
+```
+/cell Turn OrderCell into one element: label, value, custom content, actions
 ```
 
 **Fix a specific issue:**
