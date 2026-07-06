@@ -4,9 +4,9 @@
 
 ## Skills
 
-### `/a11y` — General Accessibility
+### `/accessibility` — Review a screen (main entrance)
 
-VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit and SwiftUI:
+The main entry point. Ask it to **review accessibility on a screen** — e.g. `/accessibility review accessibility on ProfileScreen` — and it audits the screen against the rules, applies fixes, and delegates cells/carousels/Dynamic Type to the focused skills below. Also covers VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit and SwiftUI:
 
 - `accessibilityLabel`, `accessibilityValue`, `accessibilityTraits`, and `accessibilityHint`
 - Element grouping, containers, and focus order control
@@ -18,7 +18,7 @@ VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit an
 - System accessibility settings to respect
 - Testing strategies (manual, automated, snapshot tests)
 
-### `/cell` — Cell Accessibility
+### `/accessibility-cell` — Cell Accessibility
 
 Focused skill for list / table / collection **cells** — turn a multi-view row into one well-structured element:
 
@@ -29,7 +29,7 @@ Focused skill for list / table / collection **cells** — turn a multi-view row 
 - **Input labels** with alternatives and synonyms for Voice Control
 - Hiding decorative avatars / icons / chevrons
 
-### `/carousel` — Carousel Accessibility
+### `/accessibility-carousel` — Carousel Accessibility
 
 Focused skill for horizontally paged banners, card decks, galleries, and onboarding pagers:
 
@@ -38,7 +38,7 @@ Focused skill for horizontally paged banners, card decks, galleries, and onboard
 - Hiding off-screen pages, `accessibilityScroll` paging (UIKit)
 - Pausing autoplay under VoiceOver / Switch Control / Reduce Motion
 
-### `/dynamic-type` — Dynamic Type
+### `/accessibility-dynamic-type` — Dynamic Type
 
 Dedicated skill for text scaling and adaptive layout:
 
@@ -60,7 +60,7 @@ Copy the `.claude/` directory into your iOS project's root:
 cp -r .claude/ /path/to/your/ios-project/.claude/
 ```
 
-This makes both `/a11y` and `/dynamic-type` commands available whenever you use Claude Code in that project.
+This makes both `/accessibility` and `/accessibility-dynamic-type` commands available whenever you use Claude Code in that project.
 
 ### Option 2: Add as a global skill
 
@@ -68,53 +68,55 @@ Copy the command file to your home-level Claude config so it's available in all 
 
 ```bash
 mkdir -p ~/.claude/commands
-cp .claude/commands/a11y.md ~/.claude/commands/a11y.md
-cp .claude/commands/dynamic-type.md ~/.claude/commands/dynamic-type.md
+cp .claude/commands/accessibility.md ~/.claude/commands/accessibility.md
+cp .claude/commands/accessibility-dynamic-type.md ~/.claude/commands/accessibility-dynamic-type.md
 ```
 
 ## Usage
 
-Open Claude Code in your iOS project and use the `/a11y` slash command with any prompt:
+Open Claude Code in your iOS project and use the `/accessibility` slash command with any prompt:
 
 ```
-/a11y Review this file for accessibility issues
+/accessibility review accessibility on ProfileScreen
 
-/cell Make this recipient row read as one VoiceOver element
+/accessibility Review this file for accessibility issues
 
-/cell Move the hard-to-read values in this cell into custom content
+/accessibility-cell Make this recipient row read as one VoiceOver element
 
-/dynamic-type Add Dynamic Type support to this view
+/accessibility-cell Move the hard-to-read values in this cell into custom content
 
-/a11y How should I make this custom slider accessible?
+/accessibility-dynamic-type Add Dynamic Type support to this view
 
-/a11y Review the current screen and suggest grouping improvements
+/accessibility How should I make this custom slider accessible?
+
+/accessibility Review the current screen and suggest grouping improvements
 ```
 
 ### Example workflows
 
 **Review a specific file:**
 ```
-/a11y Review Sources/Views/MenuCell.swift for accessibility
+/accessibility Review Sources/Views/MenuCell.swift for accessibility
 ```
 
 **Make a screen accessible step by step:**
 ```
-/a11y Walk me through making the checkout screen fully accessible
+/accessibility Walk me through making the checkout screen fully accessible
 ```
 
 **Adapt a cell:**
 ```
-/cell Turn OrderCell into one element: label, value, custom content, actions
+/accessibility-cell Turn OrderCell into one element: label, value, custom content, actions
 ```
 
 **Fix a specific issue:**
 ```
-/a11y The VoiceOver focus order is wrong on the product detail screen
+/accessibility The VoiceOver focus order is wrong on the product detail screen
 ```
 
 **Generate tests:**
 ```
-/a11y Write accessibility snapshot tests for OrderCell
+/accessibility Write accessibility snapshot tests for OrderCell
 ```
 
 ## Auto-apply to every screen (CLAUDE.md rules)
@@ -129,10 +131,10 @@ Create a `CLAUDE.md` in your project root with:
 ## Accessibility
 
 When creating or modifying any UIView, UIViewController, or SwiftUI View:
-- Run /a11y to review the accessibility of the changed code
+- Run /accessibility to review the accessibility of the changed code
 - Ensure every interactive element has accessibilityLabel and appropriate traits
 - Ensure decorative images are hidden from VoiceOver
-- Run /dynamic-type to review Dynamic Type support
+- Run /accessibility-dynamic-type to review Dynamic Type support
 - Ensure Dynamic Type is supported (no fixed heights, use dynamic fonts)
 ```
 
@@ -153,7 +155,7 @@ Every UI change MUST pass these checks before being considered complete:
 6. **State changes**: Dynamic content posts `UIAccessibility.post(notification:)` appropriately
 7. **System settings**: Respect `isReduceMotionEnabled`, `shouldDifferentiateWithoutColor`, `isBoldTextEnabled`, and other accessibility preferences
 
-When writing or reviewing UI code, use /a11y and /dynamic-type to verify compliance.
+When writing or reviewing UI code, use /accessibility and /accessibility-dynamic-type to verify compliance.
 ```
 
 ### Per-screen rule (for new features)
@@ -164,7 +166,7 @@ You can also scope the rule to specific features:
 ## Current Sprint: Checkout Redesign
 
 All views in `Sources/Checkout/` must be fully accessible.
-Before marking any task as done, run `/a11y Review {filename} for accessibility issues` on every changed view file.
+Before marking any task as done, run `/accessibility Review {filename} for accessibility issues` on every changed view file.
 ```
 
 ## How the skills work
@@ -175,10 +177,10 @@ The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever y
 
 | File | Command | Focus |
 |------|---------|-------|
-| `.claude/commands/a11y.md` | `/a11y` | VoiceOver, Voice Control, Switch Control, general accessibility |
-| `.claude/commands/cell.md` | `/cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
-| `.claude/commands/carousel.md` | `/carousel` | Carousel accessibility: paging model, position, autoplay |
-| `.claude/commands/dynamic-type.md` | `/dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
+| `.claude/commands/accessibility.md` | `/accessibility` | VoiceOver, Voice Control, Switch Control, general accessibility |
+| `.claude/commands/accessibility-cell.md` | `/accessibility-cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
+| `.claude/commands/accessibility-carousel.md` | `/accessibility-carousel` | Carousel accessibility: paging model, position, autoplay |
+| `.claude/commands/accessibility-dynamic-type.md` | `/accessibility-dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
 
