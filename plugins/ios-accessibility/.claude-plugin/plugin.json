@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ios-accessibility",
   "displayName": "iOS Accessibility",
+  "version": "1.0.0",
   "description": "Review and improve accessibility in UIKit and SwiftUI interfaces.",
   "author": {
     "name": "AccessibilityTools",
