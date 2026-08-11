@@ -1,12 +1,94 @@
-# iOS Accessibility Skills for Claude Code
+# iOS Accessibility for Claude Code, Cursor, Codex, and ChatGPT
 
-[Claude Code](https://docs.anthropic.com/en/docs/claude-code) slash commands that turn Claude into an iOS accessibility expert. Based on the book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/) by Mikhail Rubanov.
+Plugin for reviewing and improving accessibility in UIKit and SwiftUI interfaces with Claude Code, Cursor, Codex, or ChatGPT. The plugin is based on Mikhail Rubanov's book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/).
+
+## Install
+
+### Claude Code
+
+Add the marketplace and install the plugin:
+
+```bash
+claude plugin marketplace add AccessibilityTools/iOSAccessibilitySkill
+claude plugin install ios-accessibility@accessibility-tools
+```
+
+Restart Claude Code or run `/reload-plugins` in an active session. The commands are namespaced under `ios-accessibility`, for example:
+
+```text
+/ios-accessibility:accessibility review accessibility on ProfileScreen
+```
+
+### Cursor
+
+Add the repository as a marketplace:
+
+```bash
+cursor-agent plugin marketplace add https://github.com/AccessibilityTools/iOSAccessibilitySkill
+```
+
+Run `cursor-agent`, enter `/plugin`, open the Marketplace tab, and install `ios-accessibility`. Cursor discovers the skills automatically; ask the Agent to review a screen or invoke a skill such as `/accessibility`.
+
+### Codex
+
+Add the marketplace and install the plugin:
+
+```bash
+codex plugin marketplace add AccessibilityTools/iOSAccessibilitySkill
+codex plugin add ios-accessibility@accessibility-tools
+```
+
+Start a new task and ask Codex to review an iOS screen, or invoke `$ios-accessibility:accessibility` directly.
+
+### ChatGPT
+
+Add the marketplace from a terminal:
+
+```bash
+codex plugin marketplace add AccessibilityTools/iOSAccessibilitySkill
+```
+
+Restart the ChatGPT desktop app, open the Plugins Directory, select Personal, and install `ios-accessibility`. ChatGPT and Codex use the same plugin package.
+
+## Update
+
+### Claude Code
+
+Refresh the marketplace and update the plugin:
+
+```bash
+claude plugin marketplace update accessibility-tools
+claude plugin update ios-accessibility@accessibility-tools
+```
+
+Restart Claude Code or run `/reload-plugins` to use the updated commands.
+
+### Cursor
+
+Refresh the marketplace:
+
+```bash
+cursor-agent plugin marketplace update accessibility-tools
+```
+
+Then run `/plugin` and update or reinstall `ios-accessibility` from the Installed tab. Cursor does not currently provide a non-interactive plugin install command.
+
+### Codex and ChatGPT
+
+Refresh the marketplace and reinstall the plugin:
+
+```bash
+codex plugin marketplace upgrade accessibility-tools
+codex plugin add ios-accessibility@accessibility-tools
+```
+
+Start a new Codex task or restart the ChatGPT desktop app to load the updated skills.
 
 ## Skills
 
-### `/accessibility` — Review a screen (main entrance)
+### `/ios-accessibility:accessibility` — Review a screen (main entrance)
 
-The main entry point. Ask it to **review accessibility on a screen** — e.g. `/accessibility review accessibility on ProfileScreen` — and it audits the screen against the rules, applies fixes, and delegates cells/carousels/Dynamic Type to the focused skills below. Also covers VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit and SwiftUI:
+The main entry point. Ask it to **review accessibility on a screen** — e.g. `/ios-accessibility:accessibility review accessibility on ProfileScreen` — and it audits the screen against the rules, applies fixes, and delegates cells/carousels/Dynamic Type to the focused skills below. Also covers VoiceOver, Voice Control, Switch Control, and overall accessibility for UIKit and SwiftUI:
 
 - `accessibilityLabel`, `accessibilityValue`, `accessibilityTraits`, and `accessibilityHint`
 - Element grouping, containers, and focus order control
@@ -18,7 +100,7 @@ The main entry point. Ask it to **review accessibility on a screen** — e.g. `/
 - System accessibility settings to respect
 - Testing strategies (manual, automated, snapshot tests)
 
-### `/accessibility-cell` — Cell Accessibility
+### `/ios-accessibility:accessibility-cell` — Cell Accessibility
 
 Focused skill for list / table / collection **cells** — turn a multi-view row into one well-structured element:
 
@@ -29,7 +111,7 @@ Focused skill for list / table / collection **cells** — turn a multi-view row 
 - **Input labels** with alternatives and synonyms for Voice Control
 - Hiding decorative avatars / icons / chevrons
 
-### `/accessibility-carousel` — Carousel Accessibility
+### `/ios-accessibility:accessibility-carousel` — Carousel Accessibility
 
 Focused skill for horizontally paged banners, card decks, galleries, and onboarding pagers:
 
@@ -38,7 +120,7 @@ Focused skill for horizontally paged banners, card decks, galleries, and onboard
 - Hiding off-screen pages, `accessibilityScroll` paging (UIKit)
 - Pausing autoplay under VoiceOver / Switch Control / Reduce Motion
 
-### `/accessibility-dynamic-type` — Dynamic Type
+### `/ios-accessibility:accessibility-dynamic-type` — Dynamic Type
 
 Dedicated skill for text scaling and adaptive layout:
 
@@ -50,73 +132,51 @@ Dedicated skill for text scaling and adaptive layout:
 - Limiting Dynamic Type when needed
 - Testing and verification
 
-## Setup
-
-### Option 1: Add to your iOS project (recommended)
-
-Copy the `.claude/` directory into your iOS project's root:
-
-```bash
-cp -r .claude/ /path/to/your/ios-project/.claude/
-```
-
-This makes both `/accessibility` and `/accessibility-dynamic-type` commands available whenever you use Claude Code in that project.
-
-### Option 2: Add as a global skill
-
-Copy the command file to your home-level Claude config so it's available in all projects:
-
-```bash
-mkdir -p ~/.claude/commands
-cp .claude/commands/accessibility.md ~/.claude/commands/accessibility.md
-cp .claude/commands/accessibility-dynamic-type.md ~/.claude/commands/accessibility-dynamic-type.md
-```
-
 ## Usage
 
-Open Claude Code in your iOS project and use the `/accessibility` slash command with any prompt:
+Open your iOS project and use a plugin command with any prompt. Cursor uses the skill name without a namespace. Codex uses the `$ios-accessibility:` namespace. ChatGPT discovers the matching skill from the request.
 
 ```
-/accessibility review accessibility on ProfileScreen
+/ios-accessibility:accessibility review accessibility on ProfileScreen
 
-/accessibility Review this file for accessibility issues
+/ios-accessibility:accessibility Review this file for accessibility issues
 
-/accessibility-cell Make this recipient row read as one VoiceOver element
+/ios-accessibility:accessibility-cell Make this recipient row read as one VoiceOver element
 
-/accessibility-cell Move the hard-to-read values in this cell into custom content
+/ios-accessibility:accessibility-cell Move the hard-to-read values in this cell into custom content
 
-/accessibility-dynamic-type Add Dynamic Type support to this view
+/ios-accessibility:accessibility-dynamic-type Add Dynamic Type support to this view
 
-/accessibility How should I make this custom slider accessible?
+/ios-accessibility:accessibility How should I make this custom slider accessible?
 
-/accessibility Review the current screen and suggest grouping improvements
+/ios-accessibility:accessibility Review the current screen and suggest grouping improvements
 ```
 
 ### Example workflows
 
 **Review a specific file:**
 ```
-/accessibility Review Sources/Views/MenuCell.swift for accessibility
+/ios-accessibility:accessibility Review Sources/Views/MenuCell.swift for accessibility
 ```
 
 **Make a screen accessible step by step:**
 ```
-/accessibility Walk me through making the checkout screen fully accessible
+/ios-accessibility:accessibility Walk me through making the checkout screen fully accessible
 ```
 
 **Adapt a cell:**
 ```
-/accessibility-cell Turn OrderCell into one element: label, value, custom content, actions
+/ios-accessibility:accessibility-cell Turn OrderCell into one element: label, value, custom content, actions
 ```
 
 **Fix a specific issue:**
 ```
-/accessibility The VoiceOver focus order is wrong on the product detail screen
+/ios-accessibility:accessibility The VoiceOver focus order is wrong on the product detail screen
 ```
 
 **Generate tests:**
 ```
-/accessibility Write accessibility snapshot tests for OrderCell
+/ios-accessibility:accessibility Write accessibility snapshot tests for OrderCell
 ```
 
 ## Auto-apply to every screen (CLAUDE.md rules)
@@ -131,10 +191,10 @@ Create a `CLAUDE.md` in your project root with:
 ## Accessibility
 
 When creating or modifying any UIView, UIViewController, or SwiftUI View:
-- Run /accessibility to review the accessibility of the changed code
+- Run /ios-accessibility:accessibility to review the accessibility of the changed code
 - Ensure every interactive element has accessibilityLabel and appropriate traits
 - Ensure decorative images are hidden from VoiceOver
-- Run /accessibility-dynamic-type to review Dynamic Type support
+- Run /ios-accessibility:accessibility-dynamic-type to review Dynamic Type support
 - Ensure Dynamic Type is supported (no fixed heights, use dynamic fonts)
 ```
 
@@ -155,7 +215,7 @@ Every UI change MUST pass these checks before being considered complete:
 6. **State changes**: Dynamic content posts `UIAccessibility.post(notification:)` appropriately
 7. **System settings**: Respect `isReduceMotionEnabled`, `shouldDifferentiateWithoutColor`, `isBoldTextEnabled`, and other accessibility preferences
 
-When writing or reviewing UI code, use /accessibility and /accessibility-dynamic-type to verify compliance.
+When writing or reviewing UI code, use /ios-accessibility:accessibility and /ios-accessibility:accessibility-dynamic-type to verify compliance.
 ```
 
 ### Per-screen rule (for new features)
@@ -166,21 +226,21 @@ You can also scope the rule to specific features:
 ## Current Sprint: Checkout Redesign
 
 All views in `Sources/Checkout/` must be fully accessible.
-Before marking any task as done, run `/accessibility Review {filename} for accessibility issues` on every changed view file.
+Before marking any task as done, run `/ios-accessibility:accessibility Review {filename} for accessibility issues` on every changed view file.
 ```
 
 ## How the skills work
 
-Each skill is a markdown file in `.claude/commands/` that Claude Code loads as a system prompt when you invoke the slash command. They contain structured knowledge about iOS accessibility APIs, patterns, and best practices that Claude uses to give accurate, specific advice.
+Each skill is a Markdown file that Claude Code and Cursor load when you invoke it or ask for matching work. They contain structured knowledge about iOS accessibility APIs, patterns, and best practices that the agent uses to give accurate, specific advice.
 
 The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever you type after the command.
 
 | File | Command | Focus |
 |------|---------|-------|
-| `.claude/commands/accessibility.md` | `/accessibility` | VoiceOver, Voice Control, Switch Control, general accessibility |
-| `.claude/commands/accessibility-cell.md` | `/accessibility-cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
-| `.claude/commands/accessibility-carousel.md` | `/accessibility-carousel` | Carousel accessibility: paging model, position, autoplay |
-| `.claude/commands/accessibility-dynamic-type.md` | `/accessibility-dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
+| `plugins/ios-accessibility/skills/accessibility/SKILL.md` | `/ios-accessibility:accessibility` | VoiceOver, Voice Control, Switch Control, general accessibility |
+| `plugins/ios-accessibility/skills/accessibility-cell/SKILL.md` | `/ios-accessibility:accessibility-cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
+| `plugins/ios-accessibility/skills/accessibility-carousel/SKILL.md` | `/ios-accessibility:accessibility-carousel` | Carousel accessibility: paging model, position, autoplay |
+| `plugins/ios-accessibility/skills/accessibility-dynamic-type/SKILL.md` | `/ios-accessibility:accessibility-dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
 

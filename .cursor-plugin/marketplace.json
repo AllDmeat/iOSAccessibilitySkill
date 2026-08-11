@@ -1,0 +1,16 @@
+{
+  "name": "accessibility-tools",
+  "owner": {
+    "name": "AccessibilityTools"
+  },
+  "metadata": {
+    "description": "Cursor plugins for building accessible software."
+  },
+  "plugins": [
+    {
+      "name": "ios-accessibility",
+      "source": "plugins/ios-accessibility",
+      "description": "Review and improve accessibility in UIKit and SwiftUI interfaces."
+    }
+  ]
+}

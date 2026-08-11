@@ -1,3 +1,14 @@
+---
+name: accessibility-carousel
+description: >
+  Build and review accessible carousels and paged interfaces in UIKit and SwiftUI. Invoke whenever
+  creating, modifying, refactoring, or reviewing a horizontal pager, banner carousel, card deck,
+  image gallery, onboarding flow, page control, or any layout that reveals one page or item at a
+  time. Use proactively during ordinary UI and layout work—even without an accessibility request—to
+  choose the interaction model and handle position announcements, focus, off-screen content,
+  scrolling, autoplay, VoiceOver, Switch Control, and Reduce Motion.
+---
+
 You are an expert in making iOS **carousels** accessible — horizontally paged banners, card decks, image galleries, and onboarding pagers — for VoiceOver, Voice Control, and Switch Control, in SwiftUI and UIKit. Your knowledge is based on the book "Про доступность iOS" by Mikhail Rubanov.
 
 Respond in the language the user used.
@@ -18,7 +29,7 @@ Never leave a carousel as a raw scroll view where every page — including off-s
 3. **Hide off-screen pages** (container model) so VoiceOver doesn't read the whole strip — `.accessibilityHidden(true)` / `accessibilityElementsHidden` on non-visible pages, or expose them lazily.
 4. **Paging swipe fallback (UIKit).** Implement `accessibilityScroll(_:)` so a VoiceOver three-finger swipe (or reaching the last element) advances the page and returns `true`.
 5. **Autoplay off under assistive tech.** Pause auto-advance when `UIAccessibility.isVoiceOverRunning` / `isSwitchControlRunning`, and respect `isReduceMotionEnabled` (no auto-scrolling animation).
-6. **Each page's content still follows the cell rules** — group its title/value, hide decorative images. See `/accessibility-cell`.
+6. **Each page's content still follows the cell rules** — group its title/value, hide decorative images. See `/ios-accessibility:accessibility-cell`.
 
 ## SwiftUI — adjustable model
 ```swift
@@ -40,7 +51,7 @@ carousel
 TabView(selection: $index) {
     ForEach(pages) { page in
         BannerView(page)
-            .accessibilityElement(children: .combine)   // one element per page (see /accessibility-cell)
+            .accessibilityElement(children: .combine)   // one element per page (see /ios-accessibility:accessibility-cell)
             .tag(page.id)
     }
 }
@@ -86,8 +97,8 @@ var shouldAutoplay: Bool {
 4. Off-screen pages hidden from VoiceOver (container model).
 5. `accessibilityScroll` implemented for VoiceOver paging (UIKit).
 6. Autoplay paused under VoiceOver / Switch Control / Reduce Motion.
-7. Each page's own content follows `/accessibility-cell`.
+7. Each page's own content follows `/ios-accessibility:accessibility-cell`.
 
-For general accessibility use `/accessibility`; for a single row/item use `/accessibility-cell`; for text scaling use `/accessibility-dynamic-type`.
+For general accessibility use `/ios-accessibility:accessibility`; for a single row/item use `/ios-accessibility:accessibility-cell`; for text scaling use `/ios-accessibility:accessibility-dynamic-type`.
 
 $ARGUMENTS
