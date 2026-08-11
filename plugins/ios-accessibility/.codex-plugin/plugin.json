@@ -1,0 +1,27 @@
+{
+  "name": "ios-accessibility",
+  "version": "1.0.0",
+  "description": "Review and improve accessibility in UIKit and SwiftUI interfaces.",
+  "author": {
+    "name": "AccessibilityTools",
+    "url": "https://github.com/AccessibilityTools"
+  },
+  "homepage": "https://github.com/AccessibilityTools/iOSAccessibilitySkill",
+  "repository": "https://github.com/AccessibilityTools/iOSAccessibilitySkill",
+  "keywords": ["ios", "accessibility", "swiftui", "uikit", "voiceover", "dynamic-type"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "iOS Accessibility",
+    "shortDescription": "Review accessibility in UIKit and SwiftUI",
+    "longDescription": "Review and improve VoiceOver, Voice Control, Switch Control, Dynamic Type, cells, and carousels in iOS interfaces.",
+    "developerName": "AccessibilityTools",
+    "category": "Developer Tools",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/AccessibilityTools/iOSAccessibilitySkill",
+    "defaultPrompt": [
+      "Review accessibility on this screen.",
+      "Add Dynamic Type support to this view.",
+      "Make this cell one accessible element."
+    ]
+  }
+}

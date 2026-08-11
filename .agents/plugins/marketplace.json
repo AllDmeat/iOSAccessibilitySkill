@@ -1,0 +1,20 @@
+{
+  "name": "accessibility-tools",
+  "interface": {
+    "displayName": "Accessibility Tools"
+  },
+  "plugins": [
+    {
+      "name": "ios-accessibility",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ios-accessibility"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

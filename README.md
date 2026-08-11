@@ -1,6 +1,6 @@
-# iOS Accessibility for Claude Code and Cursor
+# iOS Accessibility for Claude Code, Cursor, Codex, and ChatGPT
 
-Plugin for reviewing and improving accessibility in UIKit and SwiftUI interfaces with [Claude Code](https://code.claude.com/docs/en/overview) or [Cursor](https://cursor.com/). The plugin is based on Mikhail Rubanov's book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/).
+Plugin for reviewing and improving accessibility in UIKit and SwiftUI interfaces with Claude Code, Cursor, Codex, or ChatGPT. The plugin is based on Mikhail Rubanov's book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/).
 
 ## Install
 
@@ -29,6 +29,27 @@ cursor-agent plugin marketplace add https://github.com/AccessibilityTools/iOSAcc
 
 Run `cursor-agent`, enter `/plugin`, open the Marketplace tab, and install `ios-accessibility`. Cursor discovers the skills automatically; ask the Agent to review a screen or invoke a skill such as `/accessibility`.
 
+### Codex
+
+Add the marketplace and install the plugin:
+
+```bash
+codex plugin marketplace add AccessibilityTools/iOSAccessibilitySkill
+codex plugin add ios-accessibility@accessibility-tools
+```
+
+Start a new task and ask Codex to review an iOS screen, or invoke `$ios-accessibility:accessibility` directly.
+
+### ChatGPT
+
+Add the marketplace from a terminal:
+
+```bash
+codex plugin marketplace add AccessibilityTools/iOSAccessibilitySkill
+```
+
+Restart the ChatGPT desktop app, open the Plugins Directory, select Personal, and install `ios-accessibility`. ChatGPT and Codex use the same plugin package.
+
 ## Update
 
 ### Claude Code
@@ -51,6 +72,17 @@ cursor-agent plugin marketplace update accessibility-tools
 ```
 
 Then run `/plugin` and update or reinstall `ios-accessibility` from the Installed tab. Cursor does not currently provide a non-interactive plugin install command.
+
+### Codex and ChatGPT
+
+Refresh the marketplace and reinstall the plugin:
+
+```bash
+codex plugin marketplace upgrade accessibility-tools
+codex plugin add ios-accessibility@accessibility-tools
+```
+
+Start a new Codex task or restart the ChatGPT desktop app to load the updated skills.
 
 ## Skills
 
@@ -102,7 +134,7 @@ Dedicated skill for text scaling and adaptive layout:
 
 ## Usage
 
-Open Claude Code in your iOS project and use a plugin command with any prompt. In Cursor, use the skill name without the `ios-accessibility:` namespace.
+Open your iOS project and use a plugin command with any prompt. Cursor uses the skill name without a namespace. Codex uses the `$ios-accessibility:` namespace. ChatGPT discovers the matching skill from the request.
 
 ```
 /ios-accessibility:accessibility review accessibility on ProfileScreen
