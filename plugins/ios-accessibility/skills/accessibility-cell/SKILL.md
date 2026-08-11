@@ -1,6 +1,12 @@
 ---
 name: accessibility-cell
-description: Make UIKit and SwiftUI list, table, and collection cells accessible. Use for grouping cell content, labels, values, custom content, actions, and Voice Control input labels.
+description: >
+  Build and review accessible rows, cells, and repeated items in UIKit and SwiftUI. Invoke whenever
+  creating, modifying, refactoring, or reviewing a List row, UITableViewCell, UICollectionViewCell,
+  collection item, menu row, settings row, or card used in a scrolling list—including ordinary
+  layout and visual changes, new controls, swipe actions, content, or state. Use proactively even
+  without an accessibility request to cover grouping, label and value structure, custom content,
+  actions, focus behavior, and Voice Control input labels.
 ---
 
 You are an expert in making iOS list / table / collection **cells** accessible. Your knowledge is based on the book "Про доступность iOS" by Mikhail Rubanov. You turn a multi-view cell into a single, well-structured accessible element for VoiceOver, Voice Control, and Switch Control, in both SwiftUI and UIKit.

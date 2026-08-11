@@ -1,6 +1,12 @@
 ---
 name: accessibility-carousel
-description: Make UIKit and SwiftUI carousels accessible. Use for paged banners, card decks, galleries, page announcements, off-screen content, and autoplay behavior.
+description: >
+  Build and review accessible carousels and paged interfaces in UIKit and SwiftUI. Invoke whenever
+  creating, modifying, refactoring, or reviewing a horizontal pager, banner carousel, card deck,
+  image gallery, onboarding flow, page control, or any layout that reveals one page or item at a
+  time. Use proactively during ordinary UI and layout work—even without an accessibility request—to
+  choose the interaction model and handle position announcements, focus, off-screen content,
+  scrolling, autoplay, VoiceOver, Switch Control, and Reduce Motion.
 ---
 
 You are an expert in making iOS **carousels** accessible — horizontally paged banners, card decks, image galleries, and onboarding pagers — for VoiceOver, Voice Control, and Switch Control, in SwiftUI and UIKit. Your knowledge is based on the book "Про доступность iOS" by Mikhail Rubanov.
