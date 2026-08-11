@@ -21,6 +21,19 @@ This is the main entry point for accessibility work. When the user asks to **rev
 - Carousels / paged banners / galleries → **`/ios-accessibility:accessibility-carousel`**
 - Text scaling & adaptive layout (Dynamic Type) → **`/ios-accessibility:accessibility-dynamic-type`**
 
+## Respect the project's design system
+
+Before changing a screen, search for its design system, component library, theme, tokens, and similar existing UI. Inspect the public API and implementation of the components used by the screen; do not assume they are accessible from their names alone.
+
+Keep ownership clear:
+
+- **The design system owns reusable structure and behavior:** element grouping, traits implied by the component, focus behavior, touch targets, contrast tokens, motion behavior, and accessibility configuration points.
+- **Feature code owns product semantics:** the concrete label, value, hint, state, localized copy, and action names for the content on this screen.
+
+If an existing design-system component supports the required behavior, use its public API instead of adding parallel accessibility modifiers or rebuilding it locally. Do not stack a second accessibility implementation on top of a component that already provides one.
+
+If the problem belongs to a design-system component but its public API cannot express the required behavior, do not reach into its private view hierarchy or patch one screen around it. Report the gap and, at most, suggest a design-system backlog item. Modify the design system only when the user explicitly asks for that separate change. If the project has no design system or suitable component, apply the platform patterns in this skill directly.
+
 ## Core Principles
 
 1. **Accessibility is not a feature — it's a skill.** It cannot be done once; developers and designers must consider it when creating every new interface.
@@ -550,11 +563,13 @@ class MenuCellTests: XCTestCase {
 
 ## Adaptation Process (Step by Step)
 
-1. **Label all elements** — set `accessibilityLabel` for everything
-2. **Group elements** — combine related views into single accessible elements
-3. **Add adjustable controls** — use `.adjustable` trait for pickers/selectors
-4. **Fix navigation** — headers, containers, notifications, scrub, modals
-5. **Test the full scenario** — walk through the entire user flow with VoiceOver
+1. **Inspect the design system** — find the components, tokens, and accessibility APIs the screen already uses
+2. **Assign ownership** — keep reusable behavior in the design system and product semantics in feature code
+3. **Label all elements** — set the screen-specific names, values, hints, and states
+4. **Group elements** — combine related views into single accessible elements without duplicating component behavior
+5. **Add adjustable controls** — use `.adjustable` trait for pickers/selectors
+6. **Fix navigation** — headers, containers, notifications, scrub, modals
+7. **Test the full scenario** — walk through the entire user flow with VoiceOver
 
 ## Common Mistakes to Avoid
 
@@ -576,23 +591,27 @@ class MenuCellTests: XCTestCase {
 
 ## When reviewing code for accessibility, check:
 
-1. Every interactive element has `accessibilityLabel` and appropriate traits
-2. Decorative images are hidden (`isAccessibilityElement = false` / `.accessibilityHidden(true)`)
-3. Dynamic content updates post appropriate notifications
-4. Complex cells are grouped with containers
-5. Adjustable elements implement increment/decrement
-6. Modals set `accessibilityViewIsModal = true`
-7. Custom views implement `accessibilityPerformEscape()` for dismissal
-8. Labels follow "name → value → type" structure
-9. Dynamic Type is supported — see `/ios-accessibility:accessibility-dynamic-type` for full checklist
-10. System accessibility settings are respected
-11. Images, videos, and maps set `accessibilityIgnoresInvertColors = true`
-12. Color contrast meets WCAG minimums (4.5:1 text, 3:1 large text/UI)
-13. Information is not conveyed by color alone
-14. Focus order is logical — override with `accessibilityElements` or `.accessibilitySortPriority` if needed
-15. Animations respect `isReduceMotionEnabled` with meaningful alternatives (not just disabled)
-16. Drag-and-drop has accessible alternatives (custom actions for reordering)
-17. Mixed-language content sets `accessibilityLanguage` on foreign-language elements
-18. `accessibilityIdentifier` is used for UI tests (not `accessibilityLabel`)
+1. The project's design system and similar components were inspected before the screen was changed
+2. Reusable behavior stays in the design system while feature code supplies product semantics
+3. Existing component accessibility is configured through its public API and not duplicated locally
+4. Design-system gaps are reported instead of bypassed through private view access or screen-specific patches
+5. Every interactive element has `accessibilityLabel` and appropriate traits
+6. Decorative images are hidden (`isAccessibilityElement = false` / `.accessibilityHidden(true)`)
+7. Dynamic content updates post appropriate notifications
+8. Complex cells are grouped with containers
+9. Adjustable elements implement increment/decrement
+10. Modals set `accessibilityViewIsModal = true`
+11. Custom views implement `accessibilityPerformEscape()` for dismissal
+12. Labels follow "name → value → type" structure
+13. Dynamic Type is supported — see `/ios-accessibility:accessibility-dynamic-type` for full checklist
+14. System accessibility settings are respected
+15. Images, videos, and maps set `accessibilityIgnoresInvertColors = true`
+16. Color contrast meets WCAG minimums (4.5:1 text, 3:1 large text/UI)
+17. Information is not conveyed by color alone
+18. Focus order is logical — override with `accessibilityElements` or `.accessibilitySortPriority` if needed
+19. Animations respect `isReduceMotionEnabled` with meaningful alternatives (not just disabled)
+20. Drag-and-drop has accessible alternatives (custom actions for reordering)
+21. Mixed-language content sets `accessibilityLanguage` on foreign-language elements
+22. `accessibilityIdentifier` is used for UI tests (not `accessibilityLabel`)
 
 $ARGUMENTS

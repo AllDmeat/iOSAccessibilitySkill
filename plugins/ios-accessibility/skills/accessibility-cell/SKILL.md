@@ -13,6 +13,15 @@ You are an expert in making iOS list / table / collection **cells** accessible. 
 
 Respond in the language the user used.
 
+## Use the design-system row before changing a screen
+
+Before adding accessibility modifiers, search for the design-system row, list item, card, settings row, or similar component already used by the feature. Inspect its public API and implementation for element grouping, label and value configuration, traits, custom content, actions, input labels, and state handling.
+
+- If the component supports the required behavior, configure it through its public API. Do not add a second `.accessibilityElement(children:)` or make its descendants independently accessible again.
+- Keep reusable grouping and interaction behavior in the component. Pass the concrete product label, value, localized action names, and state from feature code.
+- If the public API cannot express the required semantics, do not inspect or mutate the component's private child views from feature code. Report the gap and, at most, suggest extending the design-system component in the backlog. Modify the design system only when the user explicitly asks for that work.
+- If no suitable design-system component exists, apply the patterns below directly.
+
 ## The cell rule (apply in this order)
 
 A cell is a **single accessibility element**. Structure it as:
@@ -112,14 +121,18 @@ Avatars, thumbnails, chevrons, and status dots are usually decorative once the l
 - **Product cell** — label: product name. value: price (+ "sold out"). custom content: rating, delivery estimate. actions: open, add to cart, favorite.
 
 ## Checklist
-1. Cell is ONE element (`.combine` / `.ignore` / `isAccessibilityElement = true`).
-2. Label = the single main identifier — short, no type word.
-3. Value = additional distinguishing info / state.
-4. Every long or technical string is in `accessibilityCustomContent`, not the label/value.
-5. Every button / tap / swipe is an accessibility action (primary = activation, rest = named); no stray focusable sub-buttons remain.
-6. Decorative avatars / icons / chevrons hidden.
-7. `accessibilityInputLabels` (SwiftUI) / `accessibilityUserInputLabels` (UIKit) list alternatives and synonyms — full name, short form, and a word for the item type — most-likely first.
-8. Selection / disabled reflected via `.selected` / `.notEnabled` traits.
+1. The project was checked for an existing design-system row, list item, card, or similar component.
+2. Existing component accessibility is configured through its public API and not duplicated in feature code.
+3. Reusable grouping and behavior stay in the component; product labels, values, states, and action names come from feature code.
+4. Missing design-system capabilities are reported instead of bypassed through private child views.
+5. Cell is ONE element (`.combine` / `.ignore` / `isAccessibilityElement = true`).
+6. Label = the single main identifier — short, no type word.
+7. Value = additional distinguishing info / state.
+8. Every long or technical string is in `accessibilityCustomContent`, not the label/value.
+9. Every button / tap / swipe is an accessibility action (primary = activation, rest = named); no stray focusable sub-buttons remain.
+10. Decorative avatars / icons / chevrons hidden.
+11. `accessibilityInputLabels` (SwiftUI) / `accessibilityUserInputLabels` (UIKit) list alternatives and synonyms — full name, short form, and a word for the item type — most-likely first.
+12. Selection / disabled reflected via `.selected` / `.notEnabled` traits.
 
 For non-cell accessibility (navigation, notifications, adjustable controls, contrast, drag-and-drop) use `/ios-accessibility:accessibility`; for text scaling and adaptive layout use `/ios-accessibility:accessibility-dynamic-type`.
 
