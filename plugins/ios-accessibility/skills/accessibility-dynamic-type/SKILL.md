@@ -25,7 +25,7 @@ When writing or reviewing code, always respond in the language that the user use
 
 ## Choose fonts from the design system before editing a screen
 
-Before changing any font, search the project for its typography source: design-system packages, font tokens, text styles, `Font` or `UIFont` extensions, theme objects, and existing nearby views.
+Before changing any font, find and read the design-system typography documentation first: README files, typography guides, token catalogs, examples, and migration notes. Follow its documented font tokens and usage rules before inferring behavior from code. Then inspect the typography source: design-system packages, font tokens, text styles, `Font` or `UIFont` extensions, theme objects, and existing nearby views. Verify the implementation because documentation or examples may be incomplete or stale.
 
 Follow this order:
 
@@ -337,18 +337,19 @@ if dynamicTypeSize.isAccessibilitySize { ... }
 
 ## When reviewing code for Dynamic Type, check:
 
-1. The project was checked for a design system and typography tokens before fonts were changed
-2. Design-system fonts that support Dynamic Type are used through their existing APIs
-3. Design-system fonts that lack Dynamic Type support were not bypassed in feature code; the gap is reported as a possible backlog item
-4. Projects without a design system use `UIFont.preferredFont(forTextStyle:)` or semantic SwiftUI styles such as `.body`
-5. Custom-font scaling code is added only inside a design system whose Dynamic Type support the user explicitly asked to implement
-6. `adjustsFontForContentSizeCategory = true` is set on UIKit labels/buttons
-7. `numberOfLines = 0` on labels that might need to wrap
-8. No fixed heights on cells/containers — use `automaticDimension`
-9. Layout switches to vertical at `.isAccessibilityCategory` sizes
-10. Non-text elements scale with `UIFontMetrics.scaledValue(for:)` or `@ScaledMetric`
-11. Small fixed controls have Large Content Viewer enabled
-12. Bold Text setting is respected for custom fonts
-13. Screen content is scrollable
+1. Available design-system typography documentation was found and read before fonts were changed
+2. The project was checked in code for a design system and typography tokens
+3. Design-system fonts that support Dynamic Type are used through their existing APIs
+4. Design-system fonts that lack Dynamic Type support were not bypassed in feature code; the gap is reported as a possible backlog item
+5. Projects without a design system use `UIFont.preferredFont(forTextStyle:)` or semantic SwiftUI styles such as `.body`
+6. Custom-font scaling code is added only inside a design system whose Dynamic Type support the user explicitly asked to implement
+7. `adjustsFontForContentSizeCategory = true` is set on UIKit labels/buttons
+8. `numberOfLines = 0` on labels that might need to wrap
+9. No fixed heights on cells/containers — use `automaticDimension`
+10. Layout switches to vertical at `.isAccessibilityCategory` sizes
+11. Non-text elements scale with `UIFontMetrics.scaledValue(for:)` or `@ScaledMetric`
+12. Small fixed controls have Large Content Viewer enabled
+13. Bold Text setting is respected for custom fonts
+14. Screen content is scrollable
 
 $ARGUMENTS

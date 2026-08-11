@@ -15,7 +15,7 @@ Respond in the language the user used.
 
 ## Use the design-system carousel before building another one
 
-Before changing paging behavior, search for the project's design-system carousel, pager, banner, gallery, page indicator, and motion tokens. Inspect the component's public API and implementation for page semantics, visible-page exposure, announcements, accessibility scrolling, autoplay, and Reduce Motion behavior.
+Before changing paging behavior, find and read the design-system documentation for carousels, pagers, banners, galleries, page indicators, and motion: README files, component catalogs, usage guides, examples, and migration notes. Follow the documented component and motion policy first. Then inspect the public API and implementation for page semantics, visible-page exposure, announcements, accessibility scrolling, autoplay, and Reduce Motion behavior. Verify the code because documentation may be incomplete or stale.
 
 - If the component supports the required behavior, configure it through its public API instead of wrapping it in another accessibility model or rebuilding paging locally.
 - Keep reusable paging, focus, announcement, and motion behavior in the component. Pass page content, the concrete carousel label, and product actions from feature code.
@@ -103,17 +103,18 @@ var shouldAutoplay: Bool {
 ```
 
 ## Checklist
-1. The project was checked for an existing design-system carousel, pager, page indicator, and motion policy.
-2. Existing component accessibility is configured through its public API and not duplicated in feature code.
-3. Reusable paging and motion behavior stay in the component; product content and labels come from feature code.
-4. Missing design-system capabilities are reported instead of bypassed through private child views or introspection.
-5. Carousel is one adjustable element **or** a container of per-page elements — not a raw strip.
-6. Position announced as "page X of N" (value or labeled indicator).
-7. Page changes are announced (value change / `.pageScrolled`).
-8. Off-screen pages hidden from VoiceOver (container model).
-9. `accessibilityScroll` implemented for VoiceOver paging (UIKit).
-10. Autoplay paused under VoiceOver / Switch Control / Reduce Motion, using the design system's reduced-motion policy when available.
-11. Each page's own content follows `/ios-accessibility:accessibility-cell`.
+1. Available design-system documentation for paging components and motion was read first.
+2. The project was checked in code for an existing design-system carousel, pager, page indicator, and motion policy.
+3. Existing component accessibility is configured through its public API and not duplicated in feature code.
+4. Reusable paging and motion behavior stay in the component; product content and labels come from feature code.
+5. Missing design-system capabilities are reported instead of bypassed through private child views or introspection.
+6. Carousel is one adjustable element **or** a container of per-page elements — not a raw strip.
+7. Position announced as "page X of N" (value or labeled indicator).
+8. Page changes are announced (value change / `.pageScrolled`).
+9. Off-screen pages hidden from VoiceOver (container model).
+10. `accessibilityScroll` implemented for VoiceOver paging (UIKit).
+11. Autoplay paused under VoiceOver / Switch Control / Reduce Motion, using the design system's reduced-motion policy when available.
+12. Each page's own content follows `/ios-accessibility:accessibility-cell`.
 
 For general accessibility use `/ios-accessibility:accessibility`; for a single row/item use `/ios-accessibility:accessibility-cell`; for text scaling use `/ios-accessibility:accessibility-dynamic-type`.
 

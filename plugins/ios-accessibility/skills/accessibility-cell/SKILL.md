@@ -15,7 +15,7 @@ Respond in the language the user used.
 
 ## Use the design-system row before changing a screen
 
-Before adding accessibility modifiers, search for the design-system row, list item, card, settings row, or similar component already used by the feature. Inspect its public API and implementation for element grouping, label and value configuration, traits, custom content, actions, input labels, and state handling.
+Before adding accessibility modifiers, find and read the design-system documentation for rows, list items, cards, settings rows, and similar components: README files, component catalogs, usage guides, examples, and migration notes. Follow the documented component choice and contract first. Then inspect the public API and implementation of the component used by the feature for element grouping, label and value configuration, traits, custom content, actions, input labels, and state handling. Verify the code because documentation may be incomplete or stale.
 
 - If the component supports the required behavior, configure it through its public API. Do not add a second `.accessibilityElement(children:)` or make its descendants independently accessible again.
 - Keep reusable grouping and interaction behavior in the component. Pass the concrete product label, value, localized action names, and state from feature code.
@@ -121,18 +121,19 @@ Avatars, thumbnails, chevrons, and status dots are usually decorative once the l
 - **Product cell** — label: product name. value: price (+ "sold out"). custom content: rating, delivery estimate. actions: open, add to cart, favorite.
 
 ## Checklist
-1. The project was checked for an existing design-system row, list item, card, or similar component.
-2. Existing component accessibility is configured through its public API and not duplicated in feature code.
-3. Reusable grouping and behavior stay in the component; product labels, values, states, and action names come from feature code.
-4. Missing design-system capabilities are reported instead of bypassed through private child views.
-5. Cell is ONE element (`.combine` / `.ignore` / `isAccessibilityElement = true`).
-6. Label = the single main identifier — short, no type word.
-7. Value = additional distinguishing info / state.
-8. Every long or technical string is in `accessibilityCustomContent`, not the label/value.
-9. Every button / tap / swipe is an accessibility action (primary = activation, rest = named); no stray focusable sub-buttons remain.
-10. Decorative avatars / icons / chevrons hidden.
-11. `accessibilityInputLabels` (SwiftUI) / `accessibilityUserInputLabels` (UIKit) list alternatives and synonyms — full name, short form, and a word for the item type — most-likely first.
-12. Selection / disabled reflected via `.selected` / `.notEnabled` traits.
+1. Available design-system documentation for rows, list items, cards, and similar components was read first.
+2. The project was checked in code for an existing design-system component.
+3. Existing component accessibility is configured through its public API and not duplicated in feature code.
+4. Reusable grouping and behavior stay in the component; product labels, values, states, and action names come from feature code.
+5. Missing design-system capabilities are reported instead of bypassed through private child views.
+6. Cell is ONE element (`.combine` / `.ignore` / `isAccessibilityElement = true`).
+7. Label = the single main identifier — short, no type word.
+8. Value = additional distinguishing info / state.
+9. Every long or technical string is in `accessibilityCustomContent`, not the label/value.
+10. Every button / tap / swipe is an accessibility action (primary = activation, rest = named); no stray focusable sub-buttons remain.
+11. Decorative avatars / icons / chevrons hidden.
+12. `accessibilityInputLabels` (SwiftUI) / `accessibilityUserInputLabels` (UIKit) list alternatives and synonyms — full name, short form, and a word for the item type — most-likely first.
+13. Selection / disabled reflected via `.selected` / `.notEnabled` traits.
 
 For non-cell accessibility (navigation, notifications, adjustable controls, contrast, drag-and-drop) use `/ios-accessibility:accessibility`; for text scaling and adaptive layout use `/ios-accessibility:accessibility-dynamic-type`.
 
