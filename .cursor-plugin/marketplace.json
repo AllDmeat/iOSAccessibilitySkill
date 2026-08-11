@@ -1,14 +1,15 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "accessibility-tools",
   "owner": {
     "name": "AccessibilityTools"
   },
-  "description": "Claude Code plugins for building accessible software.",
+  "metadata": {
+    "description": "Cursor plugins for building accessible software."
+  },
   "plugins": [
     {
       "name": "ios-accessibility",
-      "source": "./plugins/ios-accessibility",
+      "source": "plugins/ios-accessibility",
       "description": "Review and improve accessibility in UIKit and SwiftUI interfaces."
     }
   ]

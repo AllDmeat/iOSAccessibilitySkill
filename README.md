@@ -1,8 +1,10 @@
-# iOS Accessibility for Claude Code
+# iOS Accessibility for Claude Code and Cursor
 
-[Claude Code](https://code.claude.com/docs/en/overview) plugin for reviewing and improving accessibility in UIKit and SwiftUI interfaces. The plugin is based on Mikhail Rubanov's book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/).
+Plugin for reviewing and improving accessibility in UIKit and SwiftUI interfaces with [Claude Code](https://code.claude.com/docs/en/overview) or [Cursor](https://cursor.com/). The plugin is based on Mikhail Rubanov's book ["About accessibility on iOS"](https://rubanov.dev/a11y-book/).
 
 ## Install
+
+### Claude Code
 
 Add the marketplace and install the plugin:
 
@@ -17,7 +19,19 @@ Restart Claude Code or run `/reload-plugins` in an active session. The commands 
 /ios-accessibility:accessibility review accessibility on ProfileScreen
 ```
 
+### Cursor
+
+Add the repository as a marketplace:
+
+```bash
+cursor-agent plugin marketplace add https://github.com/AccessibilityTools/iOSAccessibilitySkill
+```
+
+Run `cursor-agent`, enter `/plugin`, open the Marketplace tab, and install `ios-accessibility`. Cursor discovers the skills automatically; ask the Agent to review a screen or invoke a skill such as `/accessibility`.
+
 ## Update
+
+### Claude Code
 
 Refresh the marketplace and update the plugin:
 
@@ -27,6 +41,16 @@ claude plugin update ios-accessibility@accessibility-tools
 ```
 
 Restart Claude Code or run `/reload-plugins` to use the updated commands.
+
+### Cursor
+
+Refresh the marketplace:
+
+```bash
+cursor-agent plugin marketplace update accessibility-tools
+```
+
+Then run `/plugin` and update or reinstall `ios-accessibility` from the Installed tab. Cursor does not currently provide a non-interactive plugin install command.
 
 ## Skills
 
@@ -78,7 +102,7 @@ Dedicated skill for text scaling and adaptive layout:
 
 ## Usage
 
-Open Claude Code in your iOS project and use a plugin command with any prompt:
+Open Claude Code in your iOS project and use a plugin command with any prompt. In Cursor, use the skill name without the `ios-accessibility:` namespace.
 
 ```
 /ios-accessibility:accessibility review accessibility on ProfileScreen
@@ -175,16 +199,16 @@ Before marking any task as done, run `/ios-accessibility:accessibility Review {f
 
 ## How the skills work
 
-Each skill is a Markdown file in `commands/` that Claude Code loads as a system prompt when you invoke the slash command. They contain structured knowledge about iOS accessibility APIs, patterns, and best practices that Claude uses to give accurate, specific advice.
+Each skill is a Markdown file that Claude Code and Cursor load when you invoke it or ask for matching work. They contain structured knowledge about iOS accessibility APIs, patterns, and best practices that the agent uses to give accurate, specific advice.
 
 The `$ARGUMENTS` placeholder at the end of each file is replaced with whatever you type after the command.
 
 | File | Command | Focus |
 |------|---------|-------|
-| `commands/accessibility.md` | `/ios-accessibility:accessibility` | VoiceOver, Voice Control, Switch Control, general accessibility |
-| `commands/accessibility-cell.md` | `/ios-accessibility:accessibility-cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
-| `commands/accessibility-carousel.md` | `/ios-accessibility:accessibility-carousel` | Carousel accessibility: paging model, position, autoplay |
-| `commands/accessibility-dynamic-type.md` | `/ios-accessibility:accessibility-dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
+| `plugins/ios-accessibility/skills/accessibility/SKILL.md` | `/ios-accessibility:accessibility` | VoiceOver, Voice Control, Switch Control, general accessibility |
+| `plugins/ios-accessibility/skills/accessibility-cell/SKILL.md` | `/ios-accessibility:accessibility-cell` | Cell accessibility: label/value/custom-content/actions/input-labels |
+| `plugins/ios-accessibility/skills/accessibility-carousel/SKILL.md` | `/ios-accessibility:accessibility-carousel` | Carousel accessibility: paging model, position, autoplay |
+| `plugins/ios-accessibility/skills/accessibility-dynamic-type/SKILL.md` | `/ios-accessibility:accessibility-dynamic-type` | Font scaling, adaptive layout, Large Content Viewer |
 
 ## License
 
