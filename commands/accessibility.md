@@ -6,9 +6,9 @@ When writing or reviewing code, always respond in the language that the user use
 
 This is the main entry point for accessibility work. When the user asks to **review accessibility on a screen** (e.g. "review accessibility on ProfileScreen"), find that screen/file, audit it against the rules below, and apply the fixes — then report what changed and what's still missing. Delegate the specialised parts to the focused skills:
 
-- Rows / list-table-collection cells → **`/accessibility-cell`**
-- Carousels / paged banners / galleries → **`/accessibility-carousel`**
-- Text scaling & adaptive layout (Dynamic Type) → **`/accessibility-dynamic-type`**
+- Rows / list-table-collection cells → **`/ios-accessibility:accessibility-cell`**
+- Carousels / paged banners / galleries → **`/ios-accessibility:accessibility-carousel`**
+- Text scaling & adaptive layout (Dynamic Type) → **`/ios-accessibility:accessibility-dynamic-type`**
 
 ## Core Principles
 
@@ -99,7 +99,7 @@ element.accessibilityIdentifier = "menu_cell_pepperoni"
 
 ## Grouping and Containers
 
-> **Cells** (list / table / collection rows) have a dedicated skill — use **`/accessibility-cell`** for the full label → value → custom-content → actions → input-labels model. This section covers general containers.
+> **Cells** (list / table / collection rows) have a dedicated skill — use **`/ios-accessibility:accessibility-cell`** for the full label → value → custom-content → actions → input-labels model. This section covers general containers.
 
 ### UIKit — Containers
 ```swift
@@ -154,7 +154,7 @@ func onError() {
 
 ## Adjustable Elements (.adjustable)
 
-> Paged banners / card decks / galleries have a dedicated skill — use **`/accessibility-carousel`**.
+> Paged banners / card decks / galleries have a dedicated skill — use **`/ios-accessibility:accessibility-carousel`**.
 
 Use for controls where user picks one value from several options (size selector, rating):
 
@@ -347,7 +347,7 @@ UIAccessibility.post(notification: .pageScrolled, argument: "Page 2 of 5")
 
 ## Dynamic Type Support
 
-See the dedicated `/accessibility-dynamic-type` skill for comprehensive Dynamic Type guidance (fonts, scaling, adaptive layout, Large Content Viewer, bold text, testing).
+See the dedicated `/ios-accessibility:accessibility-dynamic-type` skill for comprehensive Dynamic Type guidance (fonts, scaling, adaptive layout, Large Content Viewer, bold text, testing).
 
 **Quick reference:** use `UIFont.preferredFont(forTextStyle:)` (UIKit) or `.font(.body)` (SwiftUI), set `adjustsFontForContentSizeCategory = true`, use `numberOfLines = 0`, avoid fixed heights, switch layout at `.isAccessibilityCategory`.
 
@@ -369,7 +369,7 @@ UIAccessibility.isVideoAutoplayEnabled     // → don't autoplay when false
 UIAccessibility.isOnOffSwitchLabelsEnabled
 ```
 
-**Bold text** and **Dynamic Type** — see `/accessibility-dynamic-type` for font scaling, custom fonts, bold text support, and Large Content Viewer.
+**Bold text** and **Dynamic Type** — see `/ios-accessibility:accessibility-dynamic-type` for font scaling, custom fonts, bold text support, and Large Content Viewer.
 
 ## Color Contrast
 
@@ -552,8 +552,8 @@ class MenuCellTests: XCTestCase {
 - Don't use `accessibilityHint` for critical info — many users disable hints
 - Don't forget `.button` trait on tappable views that aren't UIButton
 - Don't ignore `isAccessibilityElement = false` for decorative views
-- Don't use fixed heights — they break Dynamic Type (see `/accessibility-dynamic-type`)
-- Don't ignore `.isAccessibilityCategory` for layout changes (see `/accessibility-dynamic-type`)
+- Don't use fixed heights — they break Dynamic Type (see `/ios-accessibility:accessibility-dynamic-type`)
+- Don't ignore `.isAccessibilityCategory` for layout changes (see `/ios-accessibility:accessibility-dynamic-type`)
 - Don't only use color to convey information (respect `shouldDifferentiateWithoutColor`)
 - Don't trigger actions on shake without checking `isShakeToUndoEnabled`
 - Don't autoplay video without checking `isVideoAutoplayEnabled`
@@ -573,7 +573,7 @@ class MenuCellTests: XCTestCase {
 6. Modals set `accessibilityViewIsModal = true`
 7. Custom views implement `accessibilityPerformEscape()` for dismissal
 8. Labels follow "name → value → type" structure
-9. Dynamic Type is supported — see `/accessibility-dynamic-type` for full checklist
+9. Dynamic Type is supported — see `/ios-accessibility:accessibility-dynamic-type` for full checklist
 10. System accessibility settings are respected
 11. Images, videos, and maps set `accessibilityIgnoresInvertColors = true`
 12. Color contrast meets WCAG minimums (4.5:1 text, 3:1 large text/UI)

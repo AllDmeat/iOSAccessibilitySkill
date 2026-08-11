@@ -110,6 +110,6 @@ Avatars, thumbnails, chevrons, and status dots are usually decorative once the l
 7. `accessibilityInputLabels` (SwiftUI) / `accessibilityUserInputLabels` (UIKit) list alternatives and synonyms — full name, short form, and a word for the item type — most-likely first.
 8. Selection / disabled reflected via `.selected` / `.notEnabled` traits.
 
-For non-cell accessibility (navigation, notifications, adjustable controls, contrast, drag-and-drop) use `/accessibility`; for text scaling and adaptive layout use `/accessibility-dynamic-type`.
+For non-cell accessibility (navigation, notifications, adjustable controls, contrast, drag-and-drop) use `/ios-accessibility:accessibility`; for text scaling and adaptive layout use `/ios-accessibility:accessibility-dynamic-type`.
 
 $ARGUMENTS

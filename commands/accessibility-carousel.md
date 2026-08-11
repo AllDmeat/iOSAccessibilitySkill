@@ -18,7 +18,7 @@ Never leave a carousel as a raw scroll view where every page — including off-s
 3. **Hide off-screen pages** (container model) so VoiceOver doesn't read the whole strip — `.accessibilityHidden(true)` / `accessibilityElementsHidden` on non-visible pages, or expose them lazily.
 4. **Paging swipe fallback (UIKit).** Implement `accessibilityScroll(_:)` so a VoiceOver three-finger swipe (or reaching the last element) advances the page and returns `true`.
 5. **Autoplay off under assistive tech.** Pause auto-advance when `UIAccessibility.isVoiceOverRunning` / `isSwitchControlRunning`, and respect `isReduceMotionEnabled` (no auto-scrolling animation).
-6. **Each page's content still follows the cell rules** — group its title/value, hide decorative images. See `/accessibility-cell`.
+6. **Each page's content still follows the cell rules** — group its title/value, hide decorative images. See `/ios-accessibility:accessibility-cell`.
 
 ## SwiftUI — adjustable model
 ```swift
@@ -40,7 +40,7 @@ carousel
 TabView(selection: $index) {
     ForEach(pages) { page in
         BannerView(page)
-            .accessibilityElement(children: .combine)   // one element per page (see /accessibility-cell)
+            .accessibilityElement(children: .combine)   // one element per page (see /ios-accessibility:accessibility-cell)
             .tag(page.id)
     }
 }
@@ -86,8 +86,8 @@ var shouldAutoplay: Bool {
 4. Off-screen pages hidden from VoiceOver (container model).
 5. `accessibilityScroll` implemented for VoiceOver paging (UIKit).
 6. Autoplay paused under VoiceOver / Switch Control / Reduce Motion.
-7. Each page's own content follows `/accessibility-cell`.
+7. Each page's own content follows `/ios-accessibility:accessibility-cell`.
 
-For general accessibility use `/accessibility`; for a single row/item use `/accessibility-cell`; for text scaling use `/accessibility-dynamic-type`.
+For general accessibility use `/ios-accessibility:accessibility`; for a single row/item use `/ios-accessibility:accessibility-cell`; for text scaling use `/ios-accessibility:accessibility-dynamic-type`.
 
 $ARGUMENTS
